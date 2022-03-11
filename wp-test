@@ -1,6 +1,6 @@
 #!/bin/bash
 
-url="" # Enter URL here
+url="https://www.synchronycareers.com"
 filter="wp-content/themes/|wp-content/plugins/"
 links="s,href=|src=,HOLDER,g"
 
