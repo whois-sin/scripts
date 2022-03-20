@@ -14,4 +14,4 @@ sed -r $links |
 awk -F "HOLDER" '{print $2}' |
 
 # removes all the additional characters and black lines to output the plugin name and version
-cut -d "'" -f2 | rev | cut -d "/" -f1 | rev | tr -d '>' | grep -v '^$'
+cut -d "'" -f2 | rev | cut -d '/' -f1 | rev | tr -d '>' | grep -v '^$'
