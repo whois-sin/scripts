@@ -13,8 +13,8 @@ export SUB="Host: FUZZ.$DOMAIN"; # Fuzzing for subdomains/vhosts
 # create baseline directories
 mkdir -p $HTB/{creds,enum,files,vulns}; 
 cd $HTB; mkdir -p enum/{nmap,fuzzing}; 
-mkdir -p files/{downloads}; 
-mkdir -p creds/{keys};
+mkdir -p files/downloads; 
+mkdir -p creds/keys;
 mkdir -p vulns/{cves,payloads}
 
 # create baseline files
