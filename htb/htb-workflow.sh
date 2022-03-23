@@ -21,8 +21,9 @@ mkdir -p vulns/{cves,payloads}
 touch creds/{hashes,creds.txt,passwords.txt,users.txt};
 
 # add host to /etc/hosts
-echo "$IP $DOMAIN has been added to our /etc/hosts file." | sudo tee -a /etc/hosts
+echo $IP $DOMAIN | sudo tee -i -a /etc/hosts 1> /dev/null 
 
+echo "[+] $IP $DOMAIN has been added to our /etc/hosts file."
 echo "[+] We're currently working on the $HTB box on Hack the Box."
 echo "[+] Our target IP is $IP, at the $DOMAIN domain."
 echo "[+] Use $FUZZ as the url for directory brute forcing with ffuf if there is a web-server on the machine."
