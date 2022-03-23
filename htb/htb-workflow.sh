@@ -20,7 +20,7 @@ mkdir -p vulns/{cves,payloads}
 # create baseline files
 touch creds/{hashes,creds.txt,passwords.txt,users.txt};
 
-# add host to /etc/hosts
+# add target IP and domain to /etc/hosts
 echo $IP $DOMAIN | sudo tee -i -a /etc/hosts 1> /dev/null 
 
 echo "[+] $IP $DOMAIN has been added to our /etc/hosts file."
