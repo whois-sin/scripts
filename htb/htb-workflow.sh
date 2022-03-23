@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
 # export environment variables for current session
-export HTB="devzat"; # Name of the machine
-export IP="10.129.216.120";  # Target IP 
+export HTB=""; # ** Enter the name of the machine **
+export IP="";  # ** Enter the name of the target IP **
 export DOMAIN="$HTB.htb"; # Target domain
 export URL="http://$DOMAIN" # Target URL http
 export URLS="https://$DOMAIN" # Target URL https 
