@@ -1,8 +1,16 @@
-#!/usr/bin/bash
+#!/usr/bin/zsh
 
-# export environment variables for current session
-export HTB=""; # ** Enter the name of the machine **
-export IP="";  # ** Enter the name of the target IP **
+# Ask for target name and IP from user to store as environment for current terminal session
+target_machine(){
+  vared -p "Enter the name of your machine: " -c HTB
+  vared -p "Enter the target IP address: " -c RHOST
+
+  export HTB="$HTB"
+  export RHOST="$RHOST"
+}
+
+target_machine
+
 export DOMAIN="$HTB.htb"; # Target domain
 export URL="http://$DOMAIN" # Target URL http
 export URLS="https://$DOMAIN" # Target URL https 
@@ -20,10 +28,23 @@ mkdir -p vulns/{cves,payloads}
 # create baseline files
 touch creds/{hashes,creds.txt,passwords.txt,users.txt};
 
-# add target IP and domain to /etc/hosts
-echo $IP $DOMAIN | sudo tee -i -a /etc/hosts 1> /dev/null 
+# add host to /etc/hosts
+echo $RHOST $DOMAIN | sudo tee -i -a /etc/hosts 1> /dev/null 
 
-echo "[+] $IP $DOMAIN has been added to our /etc/hosts file."
+echo "[+] $RHOST $DOMAIN has been added to our /etc/hosts file."
 echo "[+] We're currently working on the $HTB box on Hack the Box."
-echo "[+] Our target IP is $IP, at the $DOMAIN domain."
+echo "[+] Our target IP is $RHOST, at the $DOMAIN domain."
 echo "[+] Use $FUZZ as the url for directory brute forcing with ffuf if there is a web-server on the machine."
+
+# IF USING BASH REMOVE COMMENTS FOR "target_machine" function above and replace lines 1-12.
+# CHANGE ENV TO "#!/usr/bin/bash"
+# COPY AND REPLACE LINES 4-12 WITH LINES BELOW. 
+# Ask for target name and IP from user to store as environment for current terminal session
+#target_machine(){
+#  read -p "Enter the name of your machine: " HTB
+#  read -p "Enter the target IP address: " RHOST
+#
+#  export HTB="$HTB"
+#  export RHOST="$RHOST"
+#}
+#target_machine
