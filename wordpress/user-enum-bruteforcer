@@ -67,8 +67,7 @@ parser.add_argument("-u", "--url",
         required = True,
         metavar = ""
     )
-parser.add_argument("-p", 
-        "--password",
+parser.add_argument("-p", "--password",
         help="Password file", 
         required=True,
         metavar = ""
